@@ -2,6 +2,9 @@
 cache/
 out/
 
+src/LongTermOrders.sol
+src/TWAMM.sol
+
 # Ignores development broadcast logs
 !/broadcast
 /broadcast/*/31337/
