@@ -8,15 +8,27 @@ We need
 - At some point, cp pool would have collected enough of tokens user wanted because of arbitrageur's trades. 
 
 Stats(or numbers)
-- Each AMM pair contract have 3 tokens : token0, token1 and ERC20 token acting as liquidity(i.e. $WHALE).
+- Each AMM pair contract have 3 tokens : token0, token1 and ERC20 liquidity token(i.e. $WHALE).
 
 Thoughts(not for current implementation)
 - What if long term order is cancelled? then it will probably have to wait for same duration of time for which the current order was sitting in pool to be filled. So that all reverse virtual trades can be made to revert back the prices.
 
 Doubts
-- How?
+- How come this expression?
 >For initial LP-amount, Uniswap V2 ended up using geometric mean of deposited amounts:  
 $Liquidity_{minted}=\sqrt{Amount0∗Amount1}$  
 ​ The main benefit of this decision is that such formula ensures that the initial liquidity ratio doesn’t affect the value of a pool share.
 
 - WhaleSwapPair.swap
+Instead of just straight constant product formula, in which if someone supplies tokenX equal to what reserves are already holding, pair will give away all of the tokenY, we use expression which behaves like hyperbola. This makes our pair reserves infinite. Trades of size relative to pair reserves are punished by exchanging with less tokens (because of price slippage). On the other hand, small sized trades get the best values through swap.
+>So let say a pair contract is initiated with 2000 token X and 1000 token Y.
+On providing 2 token X, you would get 0.999 token Y (and not exact 1 token Y)  
+This helps in maintaining $k_{new} > k_{old}$ i.e., infinite reserves. $(2002*999.0001 > 2000*1000)$
+
+- How does price0CumulativeLast += $\frac{reserve1}{reserve0} * timeElapsed$ and similarly price1CumulativeLast?
+
+- In `WhaleSwapPair::burn()`, 
+    ```
+    liquidity = balanceOf[address(this)]
+    ```
+    Used for calculation of pool tokens(A or B) to be transferred back on burning LP tokens($Whale). Shouldn't be it burning msg.sender tokens instead of WhaleSwapPair contract tokens?
