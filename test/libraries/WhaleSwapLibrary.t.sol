@@ -18,7 +18,8 @@ contract WhaleSwapLibraryTest is Test {
         factory = new WhaleSwapFactory(address(this));
         pair = factory.createPair(address(tokenA), address(tokenB));
     }
-    function testQuote() public pure{
+
+    function testQuote() public pure {
         assertEq(WhaleSwapLibrary.quote(100, 100, 100), 100);
         assertEq(WhaleSwapLibrary.quote(100, 100, 200), 200);
         assertEq(WhaleSwapLibrary.quote(100, 200, 100), 50);

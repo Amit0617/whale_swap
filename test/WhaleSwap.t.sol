@@ -34,11 +34,11 @@ contract WhaleSwapTest is Test {
     }
 
     function assertReserves(uint112 reserve0, uint112 reserve1) public view {
-        (uint112 _reserve0, uint112 _reserve1, ) = WhaleSwapPair(pair)
-            .getReserves();
+        (uint112 _reserve0, uint112 _reserve1,) = WhaleSwapPair(pair).getReserves();
         assertEq(_reserve0, reserve0);
         assertEq(_reserve1, reserve1);
     }
+
     function testMintBootstrap() public {
         token0.transfer(address(pair), 1 ether);
         token1.transfer(address(pair), 1 ether);
@@ -54,7 +54,8 @@ contract WhaleSwapTest is Test {
         token0.transfer(address(pair), 1 ether);
         token1.transfer(address(pair), 1 ether);
 
-        WhaleSwapPair(pair).mint(address(pair));
+        uint256 liq = WhaleSwapPair(pair).mint(address(this));
+        WhaleSwapPair(pair).transfer(address(pair), liq);
         // console.log("Pair balance: %d", WhaleSwapPair(pair).balanceOf(address(this)));
         // WhaleSwapPair(pair).approve(alice, 1 ether);
         WhaleSwapPair(pair).burn(address(this));
