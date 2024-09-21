@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "solidity-lib/libraries/TransferHelper.sol";
+import "openzeppelin-contracts/token/ERC20/IERC20.sol";
 import "./interfaces/IWhaleSwapFactory.sol";
 import "./interfaces/IWXFI.sol";
 import "./libraries/WhaleSwapLibrary.sol";
@@ -244,7 +245,6 @@ contract WhaleSwapRouter {
 
     function swapXFIForExactTokens(
         uint256 amountOut,
-        uint256 amountInMax,
         address[] calldata path,
         address to,
         uint256 deadline
@@ -257,6 +257,69 @@ contract WhaleSwapRouter {
         _swap(amounts, path, to);
         // refund dust XFI, if any
         if (msg.value > amounts[0]) TransferHelper.safeTransferETH(msg.sender, msg.value - amounts[0]);
+    }
+
+    function _swapSupportingFeeOnTransferTokens(address[] memory path, address _to) internal {
+        for (uint256 i; i < path.length - 1; i++) {
+            (address input, address output) = (path[i], path[i + 1]);
+            (address token0,) = WhaleSwapLibrary.sortTokens(input, output);
+            WhaleSwapPair pair = WhaleSwapPair(WhaleSwapLibrary.pairFor(factory, input, output));
+            uint256 amountInput;
+            uint256 amountOutput;
+            { // scope to avoid stack too deep errors
+                (uint256 reserve0, uint256 reserve1,) = pair.getReserves();
+                (uint256 reserveInput, uint256 reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+                amountInput = IERC20(input).balanceOf(address(pair)) - reserveInput;
+                amountOutput = WhaleSwapLibrary.getAmountOut(amountInput, reserveInput, reserveOutput);
+            }
+            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOutput) : (amountOutput, uint256(0));
+            address to = i < path.length - 2 ? WhaleSwapLibrary.pairFor(factory, output, path[i + 2]) : _to;
+            pair.swap(amount0Out, amount1Out, to, new bytes(0));
+        }
+    }
+
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external ensure(deadline) {
+        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn);
+        uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
+        _swapSupportingFeeOnTransferTokens(path, to);
+        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
+    }
+
+    function swapExactXFIForTokensSupportingFeeOnTransferTokens(
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable ensure(deadline) {
+        require(path[0] == WXFI, "WhaleSwapRouter: INVALID_PATH");
+        uint256 amountIn = msg.value;
+        IWXFI(WXFI).deposit{value: amountIn}();
+        assert(IWXFI(WXFI).transfer(WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn));
+        uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
+        _swapSupportingFeeOnTransferTokens(path, to);
+        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
+    }
+
+    function swapExactTokensForXFISupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external ensure(deadline) {
+        require(path[path.length - 1] == WXFI, "WhaleSwapRouter: INVALID_PATH");
+        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn);
+        _swapSupportingFeeOnTransferTokens(path, address(this));
+        uint256 amountOut = IERC20(WXFI).balanceOf(address(this));
+        require(amountOut >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
+        IWXFI(WXFI).withdraw(amountOut);
+        TransferHelper.safeTransferETH(to, amountOut);
     }
 
     function quote(uint256 amountA, uint256 reserveA, uint256 reserveB) public pure returns (uint256 amountB) {

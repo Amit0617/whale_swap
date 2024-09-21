@@ -1,3 +1,11 @@
+Todo
+- Test WXFI functionality for deposity and withdrawal and transfer
+cast send --value 1ether --rpc-url RPC_URL --private-key RAW_KEY 0x28cC5eDd54B1E4565317C3e0Cfab551926A4CD2a deposit()
+May be also check balance before trying to transfer
+transfer(other address, 1 ether)
+withdraw(1 ether)
+
+- Deploy contracts
 
 We need
 - A normal AMM as in uniswap(or xswap) and it's liquidity will be available for execution of long term orders too.
