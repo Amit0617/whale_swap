@@ -1,0 +1,201 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800"
+    height="800">
+    <defs />
+    <g transform="scale(2,2)">
+        <g id="background-04e74b27">
+            <rect fill="white" stroke="none" x="0" y="0" width="400" height="400" class="dcg-svg-background" />
+        </g>
+        <g id="graphpaper-04e74b27">
+            <g id="grid-04e74b27">
+                <g>
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 28.5 0 L 28.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 64.5 0 L 64.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 137.5 0 L 137.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 174.5 0 L 174.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 210.5 0 L 210.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 247.5 0 L 247.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 283.5 0 L 283.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 320.5 0 L 320.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 356.5 0 L 356.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 393.5 0 L 393.5 400" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 395.5 L 400 395.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 359.5 L 400 359.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 322.5 L 400 322.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 249.5 L 400 249.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 213.5 L 400 213.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 176.5 L 400 176.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 140.5 L 400 140.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 103.5 L 400 103.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 67.5 L 400 67.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-minor-gridline"
+                        paint-order="fill stroke markers" d=" M 0 30.5 L 400 30.5" stroke-opacity="0.2"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-major-gridline"
+                        paint-order="fill stroke markers" d=" M 283.5 0 L 283.5 400" stroke-opacity="0.2500000000000001"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                    <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-major-gridline"
+                        paint-order="fill stroke markers" d=" M 0 103.5 L 400 103.5" stroke-opacity="0.2500000000000001"
+                        stroke-miterlimit="10" stroke-dasharray="" />
+                </g>
+            </g>
+            <g id="axis-04e74b27">
+                <g id="yaxis-04e74b27">
+                    <title>Token 1 AMM end</title>
+                    <g>
+                        <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-axis-line"
+                            paint-order="fill stroke markers" d=" M 101 0 L 101 400" stroke-opacity="0.9"
+                            stroke-miterlimit="10" stroke-width="1.5" stroke-dasharray="" />
+                    </g>
+                </g>
+                <g id="xaxis-04e74b27">
+                    <title>Token 0 In</title>
+                    <g>
+                        <path fill="none" stroke="rgb(0,0,0)" class="dcg-svg-axis-line"
+                            paint-order="fill stroke markers" d=" M 0 286 L 400 286" stroke-opacity="0.9"
+                            stroke-miterlimit="10" stroke-width="1.5" stroke-dasharray="" />
+                    </g>
+                </g>
+                <g>
+                    <g class="dcg-svg-axis-value"><text fill="none" stroke="#ffffff" font-family="Arial"
+                            font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal"
+                            x="92.27328429722955" y="302.17342921620684" text-anchor="middle" stroke-miterlimit="2"
+                            stroke-width="3" stroke-dasharray="">0</text><text fill="#000000" stroke="none"
+                            font-family="Arial" font-size="14px" font-style="normal" font-weight="normal"
+                            text-decoration="normal" x="92.27328429722955" y="302.17342921620684"
+                            text-anchor="middle">0</text></g>
+                    <g class="dcg-svg-axis-value"><text fill="none" stroke="#ffffff" font-family="Arial"
+                            font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal"
+                            x="283.67664720174355" y="302.17342921620684" text-anchor="middle" stroke-miterlimit="2"
+                            stroke-width="3" stroke-dasharray="">50000</text><text fill="#000000" stroke="none"
+                            font-family="Arial" font-size="14px" font-style="normal" font-weight="normal"
+                            text-decoration="normal" x="283.67664720174355" y="302.17342921620684"
+                            text-anchor="middle">50000</text></g>
+                    <g class="dcg-svg-axis-value"><text fill="none" stroke="#ffffff" font-family="Arial"
+                            font-size="14px" font-style="normal" font-weight="normal" text-decoration="normal"
+                            x="76.70661697888544" y="107.66173296246502" text-anchor="middle" stroke-miterlimit="2"
+                            stroke-width="3" stroke-dasharray="">50000</text><text fill="#000000" stroke="none"
+                            font-family="Arial" font-size="14px" font-style="normal" font-weight="normal"
+                            text-decoration="normal" x="76.70661697888544" y="107.66173296246502"
+                            text-anchor="middle">50000</text></g>
+                </g>
+                <g class="dcg-svg-axis-label"><text fill="none" stroke="#ffffff" font-family="Arial" font-size="17px"
+                        font-style="normal" font-weight="normal" text-decoration="normal" x="306.5999984741211"
+                        y="319.36542921620685" text-anchor="start" stroke-miterlimit="2" stroke-width="3"
+                        stroke-dasharray="">Token 0 In</text><text fill="#000000" stroke="none" font-family="Arial"
+                        font-size="17px" font-style="normal" font-weight="normal" text-decoration="normal"
+                        x="306.5999984741211" y="319.36542921620685" text-anchor="start">Token 0 In</text></g>
+                <g class="dcg-svg-axis-label"
+                    transform="translate(50.248283009769224,151.96665954589844) rotate(-90,0,0)"><text fill="none"
+                        stroke="#ffffff" font-family="Arial" font-size="17px" font-style="normal" font-weight="normal"
+                        text-decoration="normal" x="0" y="0" text-anchor="start" stroke-miterlimit="2" stroke-width="3"
+                        stroke-dasharray="">Token 1 AMM end</text><text fill="#000000" stroke="none" font-family="Arial"
+                        font-size="17px" font-style="normal" font-weight="normal" text-decoration="normal" x="0" y="0"
+                        text-anchor="start">Token 1 AMM end</text></g>
+            </g>
+        </g>
+        <g id="expressions-04e74b27">
+            <g id="sketch-04e74b27">
+                <title>Expression 11</title>
+                <path fill="#fa7e19" stroke="none" paint-order="stroke fill markers" d="" fill-opacity="0.4" />
+                <g>
+                    <path fill="none" stroke="#fa7e19" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 101.16495094800165 262.0305363823746 L 101.16495094800165 262.0305363823746 L 101.16495094800165 264.65121714909503"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+                <g>
+                    <path fill="none" stroke="#fa7e19" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 101.16495094800165 265.2994025839342 L 101.16495094800165 265.2994025839342 L 101.16495094800165 265.5068270864489 L 109.47265625 260.42028291362027 L 117.96875 255.53977648458016 L 126.95312500000001 250.69018261847407 L 136.42578125 245.88240631840398 L 146.484375 241.0792135467758 L 157.12890625 236.29403705746392 L 168.359375 231.5370985881894 L 180.2734375 226.7779792321308 L 192.96875 221.9923810334626 L 206.4453125 217.1948260603442 L 220.80078125 212.36459660033535 L 236.1328125 207.48501569897456 L 252.5390625 202.54269564178537 L 270.01953125 197.5540412181683 L 288.671875 192.50625467622416 L 308.59375 187.38878137931167 L 329.8828125 182.19288313828602 L 352.63671875 176.91128996808374 L 376.953125 171.53791905423878 L 400 166.67178021779688"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+            </g>
+            <g id="sketch-04e74b27">
+                <title>Expression 12</title>
+                <path fill="#388c46" stroke="none" paint-order="stroke fill markers" d="" fill-opacity="0.4" />
+                <g>
+                    <path fill="none" stroke="#388c46" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 101.16495094800165 286.36542921620685 L 101.16495094800165 286.36542921620685 L 101.16495094800165 177.2197925190634"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+                <g>
+                    <path fill="none" stroke="#388c46" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 101.16495094800165 13.501337473348144 L 101.16495094800165 13.501337473348144 L 101.26953125 159.01103882026973 L 103.12500000000001 165.7231003796852 L 105.078125 171.9737256543778 L 107.12890625000001 177.78842497256528 L 109.27734375 183.1941043814008 L 111.5234375 188.21803232111733 L 113.96484375 193.07037049038132 L 116.50390625 197.55409014873902 L 119.23828125000001 201.84625640172942 L 122.265625 206.056901305679 L 125.48828125 210.01936368865722 L 128.80859375 213.63591642308626 L 132.32421875 217.03587085915285 L 136.03515625 220.2246835865049 L 139.94140625 223.21032088536566 L 144.04296875 226.00239099962374 L 148.4375 228.66743151495265 L 153.125 231.1983967915008 L 158.203125 233.63675719211076 L 163.671875 235.96827205656123 L 169.62890625 238.21916485626517 L 176.171875 240.40414683061292 L 183.30078125 242.5025956194925 L 191.11328125 244.52498589390126 L 199.70703125 246.47609459116464 L 209.27734375 248.37507360799378 L 219.82421875 250.19797815862762 L 231.640625 251.97079357173334 L 244.82421875 253.68090803409353 L 259.66796875 255.33907842065344 L 276.46484375 256.9475846152993 L 295.5078125 258.5036811451435 L 317.1875 260.0084953700576 L 342.08984375 261.4693466730763 L 370.703125 262.88067014047556 L 400 264.10157842836054"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+            </g>
+            <g id="sketch-04e74b27">
+                <title>Expression 24</title>
+                <path fill="#c74440" stroke="none" paint-order="stroke fill markers" d="" fill-opacity="0.4" />
+                <g>
+                    <path fill="none" stroke="#c74440" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 1.4210854715202004e-14 323.3154930432087 L 1.4210854715202004e-14 323.3154930432087 L 400 94.7440644717802"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+            </g>
+            <g id="sketch-04e74b27">
+                <title>Expression 25</title>
+                <path fill="#2d70b3" stroke="none" paint-order="stroke fill markers" d="" fill-opacity="0.4" />
+                <g>
+                    <path fill="none" stroke="#2d70b3" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 1.4210854715202004e-14 358.485508738399 L 1.4210854715202004e-14 358.485508738399 L 3.515625000000014 362.63202794179904 L 6.835937500000014 367.01113057214013 L 10.058593750000014 371.7707322146673 L 12.988281250000014 376.6128046026919 L 15.72265625 381.6551092966221 L 18.261718750000014 386.86937216876584 L 20.703125 392.4511242070432 L 23.046875000000014 398.42574744737107 L 25.1953125 404.52585044014245 L 25.503785371983433 405.5"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+                <g>
+                    <path fill="none" stroke="#2d70b3" class="dcg-svg-curve" paint-order="fill stroke markers"
+                        d=" M 80.6659488498965 -5.5 L 80.6659488498965 -5.5 L 81.25 5.219741142677776 L 82.61718750000001 26.62814837189387 L 83.98437500000001 45.00688317421131 L 85.44921875 62.01555403528792 L 86.9140625 76.78481629082961 L 88.4765625 90.53598720775832 L 90.03906250000001 102.59376098852209 L 91.69921875 113.8780794307699 L 93.45703125 124.4079120946754 L 95.21484375 133.7260839249263 L 97.07031250000001 142.46528874949152 L 99.0234375 150.64480583858855 L 100.9765625 157.94446166436998 L 103.02734375000001 164.80918606802476 L 105.17578125 171.25538600798885 L 107.421875 177.3019810295546 L 109.765625 182.96939519923933 L 112.30468750000001 188.47983923841517 L 114.94140625 193.61315185549648 L 117.7734375 198.55898623151955 L 120.80078125 203.29409406451836 L 124.0234375 207.8039766984295 L 127.53906250000001 212.19660069329 L 131.15234375 216.22719051765148 L 134.86328125 219.9348278069918 L 138.76953125 223.4364513843967 L 142.87109375 226.73669617708052 L 147.16796875 229.84215770624758 L 151.7578125 232.82088652343123 L 156.640625 235.66339151977758 L 161.81640625 238.3644970942335 L 167.3828125 240.96566693698594 L 173.33984375 243.45420844224464 L 179.78515625 245.85665905449596 L 186.71875 248.15782439955018 L 194.23828125 250.37508694118458 L 202.44140625 252.51789329562519 L 211.42578125 254.58993191718943 L 221.2890625 256.59093918711426 L 232.12890625 258.518197567753 L 244.04296875 260.3677515755762 L 257.32421875 262.1599179622611 L 272.0703125 263.88086051567586 L 288.57421875 265.53813598607087 L 307.03125 267.12419103301704 L 327.83203125 268.64500901828245 L 351.46484375 270.1051907085063 L 378.3203125 271.4973973273571 L 400 272.45862114651345"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2.5"
+                        stroke-dasharray="" />
+                </g>
+            </g>
+        </g>
+        <g id="labels-04e74b27" />
+        <g id="labels-04e74b27" />
+    </g>
+    <text x="700" y="400" fill="#fa7e19" font-size="14" text-anchor="middle">TWAMM</text>
+    <text x="720" y="520" fill="#388c46" font-size="14" text-anchor="middle">TWAMM</text>
+    <text x="600" y="280" fill="#c74440" font-size="14" text-anchor="middle">CPAMM</text>
+    <text x="700" y="560" fill="#2d70b3" font-size="14" text-anchor="middle">CPAMM</text>
+</svg>
