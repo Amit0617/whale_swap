@@ -7,7 +7,7 @@ function UseCases() {
         <Heading as="h2" size="xl">
           WhaleSwap in Action
         </Heading>
-        <Text fontSize="lg">Use Case 1: Whale Investor</Text>
+        <Text fontSize="lg">Use Case 1: Whale Trader</Text>
         <Text>
           A large investor wants to buy $5 million worth of XFI tokens. With
           WhaleSwap, the trade is spread over time, minimizing slippage.

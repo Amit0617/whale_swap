@@ -7,7 +7,6 @@ import UseCases from "./pages/UseCases";
 import Roadmap from "./pages/Roadmap";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Graph from "./pages/Graph";
 function App() {
   return (
     // Add the Routes and Route components here
@@ -16,7 +15,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/graph" element={<Graph />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/benefits" element={<Benefits />} />
         <Route path="/comparison" element={<Comparison />} />

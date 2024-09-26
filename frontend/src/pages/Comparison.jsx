@@ -34,9 +34,21 @@ function Comparison() {
             <Tr>
               <Td>Gas Fees</Td>
               <Td>Expensive for multiple orders</Td>
-              <Td>Efficient with time-weighting</Td>
+              <Td>Efficient because of only one on-chain transaction</Td>
             </Tr>
-            {/* Add more comparisons */}
+            <Tr>
+              <Td>Manual Effort</Td>
+              <Td>Splitting orders manually will be tiresome</Td>
+              <Td>Automated order splitting</Td>
+            </Tr>
+            <Tr>
+              <Td>Market Prices</Td>
+              <Td>Highly biased due to hyperbolic nature of reserves</Td>
+              <Td>
+                Fair market prices with minimal slippage because of
+                arbitrageur&apos;s trades
+              </Td>
+            </Tr>
           </Tbody>
         </Table>
       </VStack>

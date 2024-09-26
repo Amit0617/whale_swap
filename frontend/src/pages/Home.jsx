@@ -5,17 +5,19 @@ import {
   Button,
   VStack,
   Flex,
-  Image,
   Spacer,
+  HStack,
+  Image,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import SVGAnimation from "../components/SVGAnimation";
-import HowItWorks from "./HowItWorks";
-import Benefits from "./Benefits";
-import Comparison from "./Comparison";
-import UseCases from "./UseCases";
-import Roadmap from "./Roadmap";
 
 function Home() {
   return (
@@ -118,11 +120,110 @@ function Home() {
             </Text>
           </Box>
         </Flex>
-        <HowItWorks />
-        <Benefits />
-        <Comparison />
-        <UseCases />
-        <Roadmap />
+      </Box>
+
+      <Box py={20} px={8} bg={useColorModeValue("gray.100", "gray.800")}>
+        <VStack spacing={8} align="start" maxW="7xl" mx="auto" textAlign="left">
+          <Heading
+            as="h2"
+            size="xl"
+            fontWeight="bold"
+            color={useColorModeValue("gray.800", "white")}
+          >
+            Problem
+          </Heading>
+          <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.300")}>
+            Current Automated Market Makers (AMMs) are primarily based on the
+            constant product formula, making it difficult for users who want to
+            execute large trades. For instance, if someone attempts to purchase
+            $5 million worth of a token on a traditional AMM, the price slippage
+            can become extreme. Additionally, front-running bots exploit large
+            trades by causing extra slippage through malicious strategies.
+          </Text>
+          <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.300")}>
+            Furthermore, the mempool visibility of large trades attracts market
+            manipulation and biases pricing behavior, making the process
+            inefficient for large, legitimate traders. The burden of gas fees
+            adds even more cost to these types of transactions when traders are
+            forced to manually split large orders into smaller chunks.
+          </Text>
+
+          <Heading
+            as="h2"
+            size="xl"
+            fontWeight="bold"
+            color={useColorModeValue("gray.800", "white")}
+          >
+            Solution
+          </Heading>
+          <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.300")}>
+            WhaleSwap offers a unique Time-Weighted Automated Market Maker
+            (TWAMM) solution, which spreads large trades over time, reducing
+            slippage significantly. By using WhaleSwap, users can place large
+            orders, which will be broken into smaller trades that execute over a
+            longer duration. This ensures fair pricing without triggering sudden
+            price fluctuations.
+          </Text>
+          <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.300")}>
+            Additionally, WhaleSwap encourages arbitrageurs to correct prices by
+            providing arbitrage opportunities between WhaleSwap and centralized
+            exchanges, ensuring continuous price adjustment. This means large
+            traders don&apos;t have to worry about front-running or
+            manipulation, while also avoiding the hassle of manually splitting
+            their orders.
+          </Text>
+          <Table variant="simple" colorScheme="blue">
+            <Thead>
+              <Tr>
+                <Th>Traditional AMMs</Th>
+                <Th>WhaleSwap</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>
+                  <VStack spacing={4} align="start">
+                    <Image src={"../../public/CPAMM.png"} alt="CPAMM" />
+                    <Text
+                      fontSize="lg"
+                      color={useColorModeValue("gray.700", "gray.300")}
+                    >
+                      Traditional AMM with Constant Product Formula. Large
+                      trades face high slippage and very bad pricing.
+                    </Text>
+                    <Image
+                      src={"../../public/10SplitCPAMM.png"}
+                      alt="10SplitCPAMM"
+                    />
+                    <Text
+                      fontSize="lg"
+                      color={useColorModeValue("gray.700", "gray.300")}
+                    >
+                      Traditional AMM with 10 Split Orders. Apart from 10x gas,
+                      their capital suffers from sudden price changes.
+                    </Text>
+                  </VStack>
+                </Td>
+                <Td>
+                  <Image src={"../../public/TWAMM.png"} alt="TWAMM" />
+                  <Text
+                    fontSize="lg"
+                    color={useColorModeValue("gray.700", "gray.300")}
+                  >
+                    WhaleSwap&apos;s Time-Weighted AMM. Large trades are spread
+                    over time, reducing slippage and ensuring fair pricing
+                    executing infinite number of trande
+                  </Text>
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+          <RouterLink to="/how-it-works">
+            <Button colorScheme="blue" size="lg">
+              Explore the Trustless and permissionless Solution
+            </Button>
+          </RouterLink>
+        </VStack>
       </Box>
     </>
   );
