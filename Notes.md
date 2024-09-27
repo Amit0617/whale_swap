@@ -1,5 +1,5 @@
 Todo
-- Test WXFI functionality for deposity and withdrawal and transfer
+- ~~Test WXFI functionality for deposity and withdrawal and transfer~~
 cast send --value 1ether --rpc-url RPC_URL --private-key RAW_KEY 0x28cC5eDd54B1E4565317C3e0Cfab551926A4CD2a deposit()
 May be also check balance before trying to transfer
 transfer(other address, 1 ether)
@@ -27,13 +27,20 @@ Doubts
 $Liquidity_{minted}=\sqrt{Amount0∗Amount1}$  
 ​ The main benefit of this decision is that such formula ensures that the initial liquidity ratio doesn’t affect the value of a pool share.
 
-- WhaleSwapPair.swap
+- WhaleSwapPair.swap  
 Instead of just straight constant product formula, in which if someone supplies tokenX equal to what reserves are already holding, pair will give away all of the tokenY, we use expression which behaves like hyperbola. This makes our pair reserves infinite. Trades of size relative to pair reserves are punished by exchanging with less tokens (because of price slippage). On the other hand, small sized trades get the best values through swap.
 >So let say a pair contract is initiated with 2000 token X and 1000 token Y.
 On providing 2 token X, you would get 0.999 token Y (and not exact 1 token Y)  
 This helps in maintaining $k_{new} > k_{old}$ i.e., infinite reserves. $(2002*999.0001 > 2000*1000)$
 
-- How does price0CumulativeLast += $\frac{reserve1}{reserve0} * timeElapsed$ and similarly price1CumulativeLast?
+- ~~ How does price0CumulativeLast += $\frac{reserve1}{reserve0} * timeElapsed$ and similarly price1CumulativeLast?~~  
+**Explanation:** It will mainly be useful for creating decentralised oracles. For how long a price was sustained, that weightage is taken into consideration by multiplying with `timeElapsed`. To calculate current price using `priceXCumulative`, we can do following 
+```math
+price0Average = \frac{price0Cumulative - price0CumulativeLast}{timeStamp - timeStampLast}    
+```
+```math
+price1Average = \frac{price1Cumulative - price1CumulativeLast}{timeStamp - timeStampLast}
+```
 
 - In `WhaleSwapPair::burn()`, 
     ```

@@ -208,7 +208,7 @@ function Home() {
                   >
                     WhaleSwap&apos;s Time-Weighted AMM. Large trades are spread
                     over time, reducing slippage and ensuring fair pricing
-                    executing infinite number of trande
+                    executing infinite number of trades virtually.
                   </Text>
                 </Td>
               </Tr>

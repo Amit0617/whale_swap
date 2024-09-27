@@ -40,6 +40,7 @@ contract WhaleSwapRouter {
         }
         (uint256 reserveA, uint256 reserveB) = WhaleSwapLibrary.getReserves(factory, tokenA, tokenB);
         if (reserveA == 0 && reserveB == 0) {
+            // you are the first liquidity provider, we simply trust on your ratio
             (amountA, amountB) = (amountADesired, amountBDesired);
         } else {
             uint256 amountBOptimal = WhaleSwapLibrary.quote(amountADesired, reserveA, reserveB);
@@ -81,7 +82,8 @@ contract WhaleSwapRouter {
         address to,
         uint256 deadline
     ) external payable ensure(deadline) returns (uint256 amountToken, uint256 amountXFI, uint256 liquidity) {
-        (amountToken, amountXFI) = _addLiquidity(token, WXFI, amountTokenDesired, msg.value, amountTokenMin, amountXFIMin);
+        (amountToken, amountXFI) =
+            _addLiquidity(token, WXFI, amountTokenDesired, msg.value, amountTokenMin, amountXFIMin);
         address pair = WhaleSwapLibrary.pairFor(factory, token, WXFI);
         TransferHelper.safeTransferFrom(token, msg.sender, pair, amountToken);
         IWXFI(WXFI).deposit{value: amountXFI}();
@@ -117,7 +119,8 @@ contract WhaleSwapRouter {
         address to,
         uint256 deadline
     ) public ensure(deadline) returns (uint256 amountToken, uint256 amountXFI) {
-        (amountToken, amountXFI) = removeLiquidity(token, WXFI, liquidity, amountTokenMin, amountXFIMin, address(this), deadline);
+        (amountToken, amountXFI) =
+            removeLiquidity(token, WXFI, liquidity, amountTokenMin, amountXFIMin, address(this), deadline);
         TransferHelper.safeTransfer(token, to, amountToken);
         IWXFI(WXFI).withdraw(amountXFI);
         TransferHelper.safeTransferETH(to, amountXFI);
@@ -131,12 +134,15 @@ contract WhaleSwapRouter {
         uint256 amountBMin,
         address to,
         uint256 deadline,
-        bool approveMax, uint8 v, bytes32 r, bytes32 s
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
     ) external ensure(deadline) returns (uint256 amountA, uint256 amountB) {
         address pair = WhaleSwapLibrary.pairFor(factory, tokenA, tokenB);
         uint256 value = approveMax ? type(uint256).max : liquidity;
         WhaleSwapPair(pair).permit(msg.sender, address(this), value, deadline, v, r, s);
-        (amountA, amountB ) = removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadline);
+        (amountA, amountB) = removeLiquidity(tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadline);
     }
 
     function removeLiquidityXFIWithPermit(
@@ -146,7 +152,10 @@ contract WhaleSwapRouter {
         uint256 amountXFIMin,
         address to,
         uint256 deadline,
-        bool approveMax, uint8 v, bytes32 r, bytes32 s
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
     ) external ensure(deadline) returns (uint256 amountToken, uint256 amountXFI) {
         address pair = WhaleSwapLibrary.pairFor(factory, token, WXFI);
         uint256 value = approveMax ? type(uint256).max : liquidity;
@@ -154,16 +163,13 @@ contract WhaleSwapRouter {
         (amountToken, amountXFI) = removeLiquidityXFI(token, liquidity, amountTokenMin, amountXFIMin, to, deadline);
     }
 
-    function _swap(
-        uint256[] memory amounts,
-        address[] memory path,
-        address _to
-    ) private {
+    function _swap(uint256[] memory amounts, address[] memory path, address _to) private {
         for (uint256 i; i < path.length - 1; i++) {
             (address input, address output) = (path[i], path[i + 1]);
             (address token0,) = WhaleSwapLibrary.sortTokens(input, output);
             uint256 amountOut = amounts[i + 1];
-            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
+            (uint256 amount0Out, uint256 amount1Out) =
+                input == token0 ? (uint256(0), amountOut) : (amountOut, uint256(0));
             address to = i < path.length - 2 ? WhaleSwapLibrary.pairFor(factory, output, path[i + 2]) : _to;
             WhaleSwapPair(WhaleSwapLibrary.pairFor(factory, input, output)).swap(
                 amount0Out, amount1Out, to, new bytes(0)
@@ -180,7 +186,9 @@ contract WhaleSwapRouter {
     ) external ensure(deadline) returns (uint256[] memory amounts) {
         amounts = WhaleSwapLibrary.getAmountsOut(factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]
+        );
         _swap(amounts, path, to);
     }
 
@@ -193,16 +201,18 @@ contract WhaleSwapRouter {
     ) external ensure(deadline) returns (uint256[] memory amounts) {
         amounts = WhaleSwapLibrary.getAmountsIn(factory, amountOut, path);
         require(amounts[0] <= amountInMax, "WhaleSwapRouter: EXCESSIVE_INPUT_AMOUNT");
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]
+        );
         _swap(amounts, path, to);
     }
 
-    function swapExactXFIForTokens(
-        uint256 amountOutMin,
-        address[] calldata path,
-        address to,
-        uint256 deadline
-    ) external payable ensure(deadline) returns (uint256[] memory amounts) {
+    function swapExactXFIForTokens(uint256 amountOutMin, address[] calldata path, address to, uint256 deadline)
+        external
+        payable
+        ensure(deadline)
+        returns (uint256[] memory amounts)
+    {
         require(path[0] == WXFI, "WhaleSwapRouter: INVALID_PATH");
         amounts = WhaleSwapLibrary.getAmountsOut(factory, msg.value, path);
         require(amounts[amounts.length - 1] >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
@@ -221,7 +231,9 @@ contract WhaleSwapRouter {
         require(path[path.length - 1] == WXFI, "WhaleSwapRouter: INVALID_PATH");
         amounts = WhaleSwapLibrary.getAmountsIn(factory, amountOut, path);
         require(amounts[0] <= amountInMax, "WhaleSwapRouter: EXCESSIVE_INPUT_AMOUNT");
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]
+        );
         _swap(amounts, path, address(this));
         IWXFI(WXFI).withdraw(amounts[amounts.length - 1]);
         TransferHelper.safeTransferETH(to, amounts[amounts.length - 1]);
@@ -237,18 +249,20 @@ contract WhaleSwapRouter {
         require(path[path.length - 1] == WXFI, "WhaleSwapRouter: INVALID_PATH");
         amounts = WhaleSwapLibrary.getAmountsOut(factory, amountIn, path);
         require(amounts[amounts.length - 1] >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amounts[0]
+        );
         _swap(amounts, path, address(this));
         IWXFI(WXFI).withdraw(amounts[amounts.length - 1]);
         TransferHelper.safeTransferETH(to, amounts[amounts.length - 1]);
     }
 
-    function swapXFIForExactTokens(
-        uint256 amountOut,
-        address[] calldata path,
-        address to,
-        uint256 deadline
-    ) external payable ensure(deadline) returns (uint256[] memory amounts) {
+    function swapXFIForExactTokens(uint256 amountOut, address[] calldata path, address to, uint256 deadline)
+        external
+        payable
+        ensure(deadline)
+        returns (uint256[] memory amounts)
+    {
         require(path[0] == WXFI, "WhaleSwapRouter: INVALID_PATH");
         amounts = WhaleSwapLibrary.getAmountsIn(factory, amountOut, path);
         require(amounts[0] <= msg.value, "WhaleSwapRouter: EXCESSIVE_INPUT_AMOUNT");
@@ -266,13 +280,16 @@ contract WhaleSwapRouter {
             WhaleSwapPair pair = WhaleSwapPair(WhaleSwapLibrary.pairFor(factory, input, output));
             uint256 amountInput;
             uint256 amountOutput;
-            { // scope to avoid stack too deep errors
+            {
+                // scope to avoid stack too deep errors
                 (uint256 reserve0, uint256 reserve1,) = pair.getReserves();
-                (uint256 reserveInput, uint256 reserveOutput) = input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+                (uint256 reserveInput, uint256 reserveOutput) =
+                    input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
                 amountInput = IERC20(input).balanceOf(address(pair)) - reserveInput;
                 amountOutput = WhaleSwapLibrary.getAmountOut(amountInput, reserveInput, reserveOutput);
             }
-            (uint256 amount0Out, uint256 amount1Out) = input == token0 ? (uint256(0), amountOutput) : (amountOutput, uint256(0));
+            (uint256 amount0Out, uint256 amount1Out) =
+                input == token0 ? (uint256(0), amountOutput) : (amountOutput, uint256(0));
             address to = i < path.length - 2 ? WhaleSwapLibrary.pairFor(factory, output, path[i + 2]) : _to;
             pair.swap(amount0Out, amount1Out, to, new bytes(0));
         }
@@ -285,10 +302,15 @@ contract WhaleSwapRouter {
         address to,
         uint256 deadline
     ) external ensure(deadline) {
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn
+        );
         uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
-        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
+        require(
+            IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin,
+            "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT"
+        );
     }
 
     function swapExactXFIForTokensSupportingFeeOnTransferTokens(
@@ -303,7 +325,10 @@ contract WhaleSwapRouter {
         assert(IWXFI(WXFI).transfer(WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn));
         uint256 balanceBefore = IERC20(path[path.length - 1]).balanceOf(to);
         _swapSupportingFeeOnTransferTokens(path, to);
-        require(IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
+        require(
+            IERC20(path[path.length - 1]).balanceOf(to) - balanceBefore >= amountOutMin,
+            "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT"
+        );
     }
 
     function swapExactTokensForXFISupportingFeeOnTransferTokens(
@@ -314,7 +339,9 @@ contract WhaleSwapRouter {
         uint256 deadline
     ) external ensure(deadline) {
         require(path[path.length - 1] == WXFI, "WhaleSwapRouter: INVALID_PATH");
-        TransferHelper.safeTransferFrom(path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn);
+        TransferHelper.safeTransferFrom(
+            path[0], msg.sender, WhaleSwapLibrary.pairFor(factory, path[0], path[1]), amountIn
+        );
         _swapSupportingFeeOnTransferTokens(path, address(this));
         uint256 amountOut = IERC20(WXFI).balanceOf(address(this));
         require(amountOut >= amountOutMin, "WhaleSwapRouter: INSUFFICIENT_OUTPUT_AMOUNT");
@@ -326,11 +353,19 @@ contract WhaleSwapRouter {
         return WhaleSwapLibrary.quote(amountA, reserveA, reserveB);
     }
 
-    function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut) public pure returns (uint256 amountOut) {
+    function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut)
+        public
+        pure
+        returns (uint256 amountOut)
+    {
         return WhaleSwapLibrary.getAmountOut(amountIn, reserveIn, reserveOut);
     }
 
-    function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut) public pure returns (uint256 amountIn) {
+    function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut)
+        public
+        pure
+        returns (uint256 amountIn)
+    {
         return WhaleSwapLibrary.getAmountIn(amountOut, reserveIn, reserveOut);
     }
 
