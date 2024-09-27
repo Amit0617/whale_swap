@@ -6,7 +6,6 @@ import {
   VStack,
   Flex,
   Spacer,
-  HStack,
   Image,
   Table,
   Thead,
@@ -183,7 +182,7 @@ function Home() {
               <Tr>
                 <Td>
                   <VStack spacing={4} align="start">
-                    <Image src={"../../public/CPAMM.png"} alt="CPAMM" />
+                    <Image src={"/CPAMM.png"} alt="CPAMM" />
                     <Text
                       fontSize="lg"
                       color={useColorModeValue("gray.700", "gray.300")}
@@ -191,10 +190,7 @@ function Home() {
                       Traditional AMM with Constant Product Formula. Large
                       trades face high slippage and very bad pricing.
                     </Text>
-                    <Image
-                      src={"../../public/10SplitCPAMM.png"}
-                      alt="10SplitCPAMM"
-                    />
+                    <Image src={"/10SplitCPAMM.png"} alt="10SplitCPAMM" />
                     <Text
                       fontSize="lg"
                       color={useColorModeValue("gray.700", "gray.300")}
@@ -205,7 +201,7 @@ function Home() {
                   </VStack>
                 </Td>
                 <Td>
-                  <Image src={"../../public/TWAMM.png"} alt="TWAMM" />
+                  <Image src={"../../TWAMM.png"} alt="TWAMM" />
                   <Text
                     fontSize="lg"
                     color={useColorModeValue("gray.700", "gray.300")}

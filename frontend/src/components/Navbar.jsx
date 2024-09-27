@@ -24,7 +24,7 @@ function Navbar() {
               <Image
                 h={"fit-content"}
                 w={"fit-content"}
-                src="/public/whaleSwapLogoSmall.png"
+                src="/whaleSwapLogoSmall.png"
               />
               <Box fontWeight="bold" fontSize="xl">
                 WhaleSwap
