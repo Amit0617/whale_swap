@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "solidity-lib/libraries/TransferHelper.sol";
-import "openzeppelin-contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 import "./interfaces/IWhaleSwapFactory.sol";
 import "./interfaces/IWXFI.sol";
 import "./libraries/WhaleSwapLibrary.sol";
@@ -138,7 +138,7 @@ contract WhaleSwapRouter {
         uint8 v,
         bytes32 r,
         bytes32 s
-    ) external ensure(deadline) returns (uint256 amountA, uint256 amountB) {
+    ) external returns (uint256 amountA, uint256 amountB) {
         address pair = WhaleSwapLibrary.pairFor(factory, tokenA, tokenB);
         uint256 value = approveMax ? type(uint256).max : liquidity;
         WhaleSwapPair(pair).permit(msg.sender, address(this), value, deadline, v, r, s);

@@ -21,7 +21,6 @@ contract WhaleSwapTest is Test {
         factory = new WhaleSwapFactory(address(this));
         whaleToken = new WhaleSwapERC20();
         pair = factory.createPair(address(token0), address(token1));
-
         token0.mint(address(this), 10 ether);
         token1.mint(address(this), 10 ether);
 
@@ -34,7 +33,8 @@ contract WhaleSwapTest is Test {
     }
 
     function assertReserves(uint112 reserve0, uint112 reserve1) public view {
-        (uint112 _reserve0, uint112 _reserve1,) = WhaleSwapPair(pair).getReserves();
+        (uint112 _reserve0, uint112 _reserve1, ) = WhaleSwapPair(pair)
+            .getReserves();
         assertEq(_reserve0, reserve0);
         assertEq(_reserve1, reserve1);
     }
@@ -44,7 +44,6 @@ contract WhaleSwapTest is Test {
         token1.transfer(address(pair), 1 ether);
 
         WhaleSwapPair(pair).mint(address(this));
-        // console.log("Liquidity: %d", _liq);
         assertEq(WhaleSwapPair(pair).balanceOf(address(this)), 1 ether - 1000);
         assertReserves(1 ether, 1 ether);
         assertEq(WhaleSwapPair(pair).totalSupply(), 1 ether);
@@ -56,8 +55,6 @@ contract WhaleSwapTest is Test {
 
         uint256 liq = WhaleSwapPair(pair).mint(address(this));
         WhaleSwapPair(pair).transfer(address(pair), liq);
-        // console.log("Pair balance: %d", WhaleSwapPair(pair).balanceOf(address(this)));
-        // WhaleSwapPair(pair).approve(alice, 1 ether);
         WhaleSwapPair(pair).burn(address(this));
 
         assertEq(WhaleSwapPair(pair).balanceOf(address(pair)), 0);
@@ -71,10 +68,23 @@ contract WhaleSwapTest is Test {
         token0.transfer(address(pair), 2 ether);
         token1.transfer(address(pair), 2 ether);
 
-        WhaleSwapPair(pair).mint(address(pair));
-        WhaleSwapPair(pair).swap(0.5 ether, 0.5 ether, address(this), new bytes(0));
-        assertReserves(1000, 1000);
-        assertEq(token0.balanceOf(address(this)), 10 ether - 1000);
-        assertEq(token1.balanceOf(address(this)), 10 ether - 1000);
+        WhaleSwapPair(pair).mint(address(this));
+        token0.transfer(address(pair), 0.0001 ether);
+        WhaleSwapPair(pair).swap(
+            0.00009 ether, // 90% of 0.0001 ether
+            0 ether,
+            address(this),
+            new bytes(0)
+        );
+        assertReserves(1.99991 ether, 2.0001 ether); // k > kLast
+
+        token1.transfer(address(pair), 1 ether);
+        WhaleSwapPair(pair).swap(
+            0 ether,
+            0.6 ether,
+            address(this),
+            new bytes(0)
+        ); // 2 * 1 / (2 + 1) = 0.666666666666666666 ether (amountOut)
+        assertReserves(2.99991 ether, 1.4001 ether); // k > kLast
     }
 }
