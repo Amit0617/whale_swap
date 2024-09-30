@@ -32,12 +32,13 @@ contract WhaleSwapRouterTest is Test {
         console.log("TokenA balance: %d", tokenA.balanceOf(address(this)));
         console.log("TokenB balance: %d", tokenB.balanceOf(address(this)));
     }
+
     function assertReservesGe(uint112 reserve0, uint112 reserve1) public view {
-        (uint112 _reserve0, uint112 _reserve1, ) = WhaleSwapPair(pair)
-            .getReserves();
+        (uint112 _reserve0, uint112 _reserve1,) = WhaleSwapPair(pair).getReserves();
         assertGe(_reserve0, reserve0);
         assertGe(_reserve1, reserve1);
     }
+
     function testSwapExactTokensForTokens() public {
         tokenA.transfer(address(pair), 2 ether);
         tokenB.transfer(address(pair), 2 ether);
@@ -48,11 +49,7 @@ contract WhaleSwapRouterTest is Test {
         path[1] = address(tokenB);
         tokenA.approve(address(router), 1 ether);
         WhaleSwapRouter(router).swapExactTokensForTokens(
-            1 ether,
-            0.6 ether,
-            path,
-            address(this),
-            vm.getBlockTimestamp() + 100
+            1 ether, 0.6 ether, path, address(this), vm.getBlockTimestamp() + 100
         );
         assertReservesGe(1.3 ether, 2.9 ether);
     }

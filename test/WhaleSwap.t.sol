@@ -33,8 +33,7 @@ contract WhaleSwapTest is Test {
     }
 
     function assertReserves(uint112 reserve0, uint112 reserve1) public view {
-        (uint112 _reserve0, uint112 _reserve1, ) = WhaleSwapPair(pair)
-            .getReserves();
+        (uint112 _reserve0, uint112 _reserve1,) = WhaleSwapPair(pair).getReserves();
         assertEq(_reserve0, reserve0);
         assertEq(_reserve1, reserve1);
     }
@@ -79,12 +78,7 @@ contract WhaleSwapTest is Test {
         assertReserves(1.99991 ether, 2.0001 ether); // k > kLast
 
         token1.transfer(address(pair), 1 ether);
-        WhaleSwapPair(pair).swap(
-            0 ether,
-            0.6 ether,
-            address(this),
-            new bytes(0)
-        ); // 2 * 1 / (2 + 1) = 0.666666666666666666 ether (amountOut)
+        WhaleSwapPair(pair).swap(0 ether, 0.6 ether, address(this), new bytes(0)); // 2 * 1 / (2 + 1) = 0.666666666666666666 ether (amountOut)
         assertReserves(2.99991 ether, 1.4001 ether); // k > kLast
     }
 }
