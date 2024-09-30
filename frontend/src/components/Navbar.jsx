@@ -50,7 +50,7 @@ function Navbar() {
           </HStack>
         </HStack>
         <Flex alignItems={"center"}>
-          <Button colorScheme={"blue"}>Join the Community</Button>
+          <Button colorScheme={"blue"}>Join the Community(Soon!)</Button>
         </Flex>
       </Flex>
     </Box>
