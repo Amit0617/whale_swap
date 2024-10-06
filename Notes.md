@@ -27,6 +27,10 @@ Doubts
 $Liquidity_{minted}=\sqrt{Amount0∗Amount1}$  
 ​ The main benefit of this decision is that such formula ensures that the initial liquidity ratio doesn’t affect the value of a pool share.
 
+One reason might be that in Uniswap, pools contain only two tokens and with equal balances. This creates an equal weight for both of the tokens(50:50). Hence both tokens contribute 1/2 weight to the constant product.  
+$\therefore Amount0^{1/2} * Amount1^{1/2}$ arises.
+Unrelated but important, there are benefits of having separate exchange for each pair compared to having multiple tokens in single exchange as such scenario will always have entrypoint for a new token to enter a established exchange which makes exchange(whose size will be growing day by day as more and more tokens enter a single exchange) a attractive target for hackers. A very high incentive can be a problematic from security of the contract(exchange). 
+
 - WhaleSwapPair.swap  
 Instead of just straight constant product formula, in which if someone supplies tokenX equal to what reserves are already holding, pair will give away all of the tokenY, we use expression which behaves like hyperbola. This makes our pair reserves infinite. Trades of size relative to pair reserves are punished by exchanging with less tokens (because of price slippage). On the other hand, small sized trades get the best values through swap.
 >So let say a pair contract is initiated with 2000 token X and 1000 token Y.
