@@ -11,6 +11,8 @@ We need
 - A normal AMM as in uniswap(or xswap) and it's liquidity will be available for execution of long term orders too.
 - Apart from constant product formula pool for every pair, there will be two more pools for both tokens of pair where any or both of those can be empty just for LTOs. (total 3 pools for each pair)
 - No actual transaction or movement will be occurring between pools, only prices of assets being traded will be changing on constant product pool using a **new formula** which will adjust prices like a large number of small trades are continuously occurring but without any actual gas fee or transaction involving(i.e., they are called virtual trades).
+    - There can be another way - limit the virtual trades to 1% of the pool and assume one trade every second. Whenever some one does a transaction calculate how many seconds have passed and show prices according to virtually updated reserves.
+    - There can be another way - where buyer gives minimum tokens expected in exchange for the amount they are swapping. It will pause virtual swaps if price movement occurs beyond threshold and resume if price is restored or can cancel swap to get back amount sitting in virtual pool to be swapped.
 - Continuous change in price will take it upwards or downwards. Arbitrageurs will continously make use of that opportunity and keep supplying assets required to complete that large order running in long term order pool.
 - Long term orders will have lower slippage even for large swaps.
 - At some point, cp pool would have collected enough of tokens user wanted because of arbitrageur's trades. 
@@ -29,7 +31,7 @@ $Liquidity_{minted}=\sqrt{Amount0∗Amount1}$
 
 One reason might be that in Uniswap, pools contain only two tokens and with equal balances. This creates an equal weight for both of the tokens(50:50). Hence both tokens contribute 1/2 weight to the constant product.  
 $\therefore Amount0^{1/2} * Amount1^{1/2}$ arises.
-Unrelated but important, there are benefits of having separate exchange for each pair compared to having multiple tokens in single exchange as such scenario will always have entrypoint for a new token to enter a established exchange which makes exchange(whose size will be growing day by day as more and more tokens enter a single exchange) a attractive target for hackers. A very high incentive can be a problematic from security of the contract(exchange). 
+Unrelated but important, there are benefits of having separate pool for each pair compared to having multiple tokens in single exchange as such scenario will always have entrypoint for a new token to enter a established exchange which makes exchange(whose size will be growing day by day as more and more tokens enter a single exchange) a attractive target for hackers. A very high incentive can be a problematic from security pov for the contract(exchange). 
 
 - WhaleSwapPair.swap  
 Instead of just straight constant product formula, in which if someone supplies tokenX equal to what reserves are already holding, pair will give away all of the tokenY, we use expression which behaves like hyperbola. This makes our pair reserves infinite. Trades of size relative to pair reserves are punished by exchanging with less tokens (because of price slippage). On the other hand, small sized trades get the best values through swap.
@@ -51,6 +53,7 @@ price1Average = \frac{price1Cumulative - price1CumulativeLast}{timeStamp - timeS
     liquidity = balanceOf[address(this)]
     ```
     Used for calculation of pool tokens(A or B) to be transferred back on burning LP tokens($Whale). Shouldn't be it burning msg.sender tokens instead of WhaleSwapPair contract tokens?
+**Explanation:** When user removes liquidity, their LP tokens($Whale) are sent to pair contract. Then pair contract burns it and sends required tokens to the Liquidity provider.
 
 <details>
 <summary><h2>Foundry Commands</h2></summary>

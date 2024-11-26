@@ -63,6 +63,33 @@ contract WhaleSwapTest is Test {
         assertEq(token1.balanceOf(address(this)), 10 ether - 1000);
     }
 
+    // two people removing liquidity at once manually can cause other person to get tokens of other person
+    // in real world, these functions are used by contracts, and another person can't call burn in between removing liquidity.
+    function testBurn2() public {
+        token0.transfer(address(pair), 1 ether);
+        token1.transfer(address(pair), 1 ether);
+
+        uint256 liq = WhaleSwapPair(pair).mint(address(this));
+        console.log("whale balance: %d", WhaleSwapPair(pair).balanceOf(address(this)));  // equal to liq just minted
+        WhaleSwapPair(pair).transfer(address(pair), liq);
+
+        vm.startPrank(alice);
+        token0.transfer(address(pair), 1 ether);
+        token1.transfer(address(pair), 1 ether);
+        WhaleSwapPair(pair).mint(alice);
+        WhaleSwapPair(pair).transfer(address(pair), WhaleSwapPair(pair).balanceOf(alice));
+        WhaleSwapPair(pair).burn(alice); // alice burns his liquidity as well as the liquidity of address(this)
+        vm.stopPrank();
+
+        // WhaleSwapPair(pair).burn(address(this)); // this will fail as address(this) has no liquidity
+        assertEq(WhaleSwapPair(pair).balanceOf(address(pair)), 0);
+        assertReserves(1000, 1000); // pair gonna hold 1000 tokens (i.e. MINIMUM_LIQUIDITY) even after burning all the liquidity
+        assertEq(WhaleSwapPair(pair).totalSupply(), 1000);
+
+        assertEq(token0.balanceOf(alice), 10 ether - 1000 + 1 ether); // alice gets extra 1 token0 as he burned the liquidity of address(this)
+        assertEq(token1.balanceOf(alice), 10 ether - 1000 + 1 ether); // same as above
+    }
+
     function testSwap() public {
         token0.transfer(address(pair), 2 ether);
         token1.transfer(address(pair), 2 ether);
