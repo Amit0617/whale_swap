@@ -1,11 +1,11 @@
 Todo
 - ~~Test WXFI functionality for deposity and withdrawal and transfer~~
-cast send --value 1ether --rpc-url RPC_URL --private-key RAW_KEY 0x28cC5eDd54B1E4565317C3e0Cfab551926A4CD2a deposit()
-May be also check balance before trying to transfer
-transfer(other address, 1 ether)
-withdraw(1 ether)
+- ~~cast send --value 1ether --rpc-url RPC_URL --private-key RAW_KEY 0x28cC5eDd54B1E4565317C3e0Cfab551926A4CD2a deposit()~~
+- ~~May be also check balance before trying to transfer~~
+- ~~transfer(other address, 1 ether)~~
+- ~~withdraw(1 ether)~~
 
-- Deploy contracts
+- ~~Deploy contracts~~
 
 We need
 - A normal AMM as in uniswap(or xswap) and it's liquidity will be available for execution of long term orders too.
@@ -53,7 +53,9 @@ price1Average = \frac{price1Cumulative - price1CumulativeLast}{timeStamp - timeS
     liquidity = balanceOf[address(this)]
     ```
     Used for calculation of pool tokens(A or B) to be transferred back on burning LP tokens($Whale). Shouldn't be it burning msg.sender tokens instead of WhaleSwapPair contract tokens?
-**Explanation:** When user removes liquidity, their LP tokens($Whale) are sent to pair contract. Then pair contract burns it and sends required tokens to the Liquidity provider.
+**Explanation:** When user removes liquidity, their LP tokens($Whale) are sent to pair contract. Then pair contract burns it and sends required tokens to the Liquidity provider. Full picture becomes clear through Router contract.
+
+### Liquidity Provider Strategies
 
 <details>
 <summary><h2>Foundry Commands</h2></summary>
@@ -126,3 +128,10 @@ $ cast --help
 ```
 </p>
 </details>
+
+References
+https://docs.uniswap.org/contracts/v2/overview
+https://app.uniswap.org/whitepaper.pdf
+https://www.paradigm.xyz/2021/07/twamm
+https://www.paradigm.xyz/2021/05/liquidity-mining-on-uniswap-v3 (https://uploads-ssl.webflow.com/5ad71ffeb79acc67c8bcdaba/5ad8d1193a40977462982470_scalable-reward-distribution-paper.pdf)
+https://0xperp.github.io/awesome-amm/
