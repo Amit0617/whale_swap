@@ -7,7 +7,7 @@ Todo
 
 - ~~Deploy contracts~~
 
-We need
+### We need
 - A normal AMM as in uniswap(or xswap) and it's liquidity will be available for execution of long term orders too.
 - Apart from constant product formula pool for every pair, there will be two more pools for both tokens of pair where any or both of those can be empty just for LTOs. (total 3 pools for each pair)
 - No actual transaction or movement will be occurring between pools, only prices of assets being traded will be changing on constant product pool using a **new formula** which will adjust prices like a large number of small trades are continuously occurring but without any actual gas fee or transaction involving(i.e., they are called virtual trades).
@@ -17,13 +17,20 @@ We need
 - Long term orders will have lower slippage even for large swaps.
 - At some point, cp pool would have collected enough of tokens user wanted because of arbitrageur's trades. 
 
-Stats(or numbers)
+#### Different strategy
+It requires uniswapv3 concenterated liquidity as core AMM. First we need to learn how that works because when adding liquidity to such AMM, setting min and max price range defines how much of each asset is required. What if someone sets it a way that takes exactly the amount they want to swap as liquidity and exits on another token even for 1% price fluctuation.
+For example, I want to swap $10M in USDC with ETH. I would set min price just 0.1% below the current price and max price to some really big(or small?) value. That way, probably I would need just 10% of the current value to get me exit all on ETH. i.e, If I would put 1M worth of ETH and 9M worth of USDC as liquidity and set price right way. I would be able to exit that liquidity in ETH.
+
+It's not for stablecoins swap.
+Must be the fastest way found till now for swapping large amounts. Need to verify as I am guessing it on the basis of past experience.
+
+### Stats(or numbers)
 - Each AMM pair contract have 3 tokens : token0, token1 and ERC20 liquidity token(i.e. $WHALE).
 
-Thoughts(not for current implementation)
+### Thoughts(not for current implementation)
 - What if long term order is cancelled? then it will probably have to wait for same duration of time for which the current order was sitting in pool to be filled. So that all reverse virtual trades can be made to revert back the prices.
 
-Doubts
+### Doubts
 - How come this expression?
 >For initial LP-amount, Uniswap V2 ended up using geometric mean of deposited amounts:  
 $Liquidity_{minted}=\sqrt{Amount0∗Amount1}$  
@@ -55,7 +62,9 @@ price1Average = \frac{price1Cumulative - price1CumulativeLast}{timeStamp - timeS
     Used for calculation of pool tokens(A or B) to be transferred back on burning LP tokens($Whale). Shouldn't be it burning msg.sender tokens instead of WhaleSwapPair contract tokens?
 **Explanation:** When user removes liquidity, their LP tokens($Whale) are sent to pair contract. Then pair contract burns it and sends required tokens to the Liquidity provider. Full picture becomes clear through Router contract.
 
+
 ### Liquidity Provider Strategies
+
 
 <details>
 <summary><h2>Foundry Commands</h2></summary>
