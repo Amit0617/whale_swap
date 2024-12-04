@@ -18,11 +18,16 @@ Todo
 - At some point, cp pool would have collected enough of tokens user wanted because of arbitrageur's trades. 
 
 #### Different strategy
-It requires uniswapv3 concenterated liquidity as core AMM. First we need to learn how that works because when adding liquidity to such AMM, setting min and max price range defines how much of each asset is required. What if someone sets it a way that takes exactly the amount they want to swap as liquidity and exits on another token even for 1% price fluctuation.
-For example, I want to swap $10M in USDC with ETH. I would set min price just 0.1% below the current price and max price to some really big(or small?) value. That way, probably I would need just 10% of the current value to get me exit all on ETH. i.e, If I would put 1M worth of ETH and 9M worth of USDC as liquidity and set price right way. I would be able to exit that liquidity in ETH.
+~~It requires uniswapv3 concenterated liquidity as core AMM. First we need to learn how that works because when adding liquidity to such AMM, setting min and max price range defines how much of each asset is required. What if someone sets it a way that takes exactly the amount they want to swap as liquidity and exits on another token even for 1% price fluctuation.  
+For example, I want to swap $10M in USDC with ETH. I would set min price just 0.1% below the current price and max price to some really big(or small?) value. That way, probably I would need just 10% of the current value to get me exit all on ETH. i.e, If I would put 1M worth of ETH and 9M worth of USDC as liquidity and set price right way. I would be able to exit that liquidity in ETH.~~
 
-It's not for stablecoins swap.
-Must be the fastest way found till now for swapping large amounts. Need to verify as I am guessing it on the basis of past experience.
+~~It's not for stablecoins swap.  
+Must be the fastest way found till now for swapping large amounts. Need to verify as I am guessing it on the basis of past experience.~~
+
+No. Not applicable. Actually for swapping $10M in USDC with ETH. Min price of ETH would have to be set to very very low like 1 USDC and Max price would have to be atleast just above current price to get added as liquidity. So in that case it is more likely that it exits towards max price which will cause it to exit in USDC again not in ETH. That too will allow somewhere like 50K-75K USDC worth of swap of ETH not scalable to millions of USDC.
+
+Attempt #2
+There is NEST oracle which is based on the model that provides prices according to current unclaimed two way price quote.
 
 ### Stats(or numbers)
 - Each AMM pair contract have 3 tokens : token0, token1 and ERC20 liquidity token(i.e. $WHALE).
@@ -42,7 +47,7 @@ Unrelated but important, there are benefits of having separate pool for each pai
 
 - WhaleSwapPair.swap  
 Instead of just straight constant product formula, in which if someone supplies tokenX equal to what reserves are already holding, pair will give away all of the tokenY, we use expression which behaves like hyperbola. This makes our pair reserves infinite. Trades of size relative to pair reserves are punished by exchanging with less tokens (because of price slippage). On the other hand, small sized trades get the best values through swap.
->So let say a pair contract is initiated with 2000 token X and 1000 token Y.
+>So let say a pair contract is initiated with 2000 token X and 1000 token Yitself.
 On providing 2 token X, you would get 0.999 token Y (and not exact 1 token Y)  
 This helps in maintaining $k_{new} > k_{old}$ i.e., infinite reserves. $(2002*999.0001 > 2000*1000)$
 
