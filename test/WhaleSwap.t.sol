@@ -70,7 +70,7 @@ contract WhaleSwapTest is Test {
         token1.transfer(address(pair), 1 ether);
 
         uint256 liq = WhaleSwapPair(pair).mint(address(this));
-        console.log("whale balance: %d", WhaleSwapPair(pair).balanceOf(address(this)));  // equal to liq just minted
+        console.log("whale balance: %d", WhaleSwapPair(pair).balanceOf(address(this))); // equal to liq just minted
         WhaleSwapPair(pair).transfer(address(pair), liq);
 
         vm.startPrank(alice);

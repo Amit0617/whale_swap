@@ -12,10 +12,18 @@ Todo
 - Apart from constant product formula pool for every pair, there will be two more pools for both tokens of pair where any or both of those can be empty just for LTOs. (total 3 pools for each pair)
 - No actual transaction or movement will be occurring between pools, only prices of assets being traded will be changing on constant product pool using a **new formula** which will adjust prices like a large number of small trades are continuously occurring but without any actual gas fee or transaction involving(i.e., they are called virtual trades).
     - There can be another way - limit the virtual trades to 1% of the pool and assume one trade every second. Whenever some one does a transaction calculate how many seconds have passed and show prices according to virtually updated reserves.
-    - There can be another way - where buyer gives minimum tokens expected in exchange for the amount they are swapping. It will pause virtual swaps if price movement occurs beyond threshold and resume if price is restored or can cancel swap to get back amount sitting in virtual pool to be swapped.
+    - There can be another way - where buyer gives minimum tokens expected in exchange for the amount they are swapping. It will pause virtual swaps if price movement occurs beyond threshold and resume if price is restored or can cancel swap to get back the amount sitting in virtual pool to be swapped.
 - Continuous change in price will take it upwards or downwards. Arbitrageurs will continously make use of that opportunity and keep supplying assets required to complete that large order running in long term order pool.
 - Long term orders will have lower slippage even for large swaps.
+- All orders to be executed at a point are collected and submitted as one trade to the core AMM. For example if there are 2 twamm orders for USDC to ETH swap, let's say of size $100K each, for duration of 24 hours. At every interval, let's say 1 hour long, 100/24 = $4.1667K will be required to be swapped for each order. So we will club them and submit a trade of size $8.33K to core AMM. Let's say we get 3 ETH back from the AMM as a result of swap, then it will be divided to each order according to the contribution of the order into the amount deposited for trade. Here, it would get divided equally among both. So each will get 1.5 ETH.
 - At some point, cp pool would have collected enough of tokens user wanted because of arbitrageur's trades. 
+
+### Technical requirements of placing long term orders
+- User will give input token (`token0`), output token (`token1`), duration for spreading the whole order (`time`).
+- Return back an `orderId` and save it in a `address`(user) to `orderId` map. Probably there can be multiple orders by a same user at a time so we want to have `address` to `orderId[]` map.
+- `Order` created will contain details like `orderId`, `token0`, `token1`, `duration`, `sellingRate`, 
+- Execute all orders at once at fixed time interval (say, `1 hour`).
+- Collect orders into a `OrderPool` and proceed cumulatively.
 
 #### Different strategy
 ~~It requires uniswapv3 concenterated liquidity as core AMM. First we need to learn how that works because when adding liquidity to such AMM, setting min and max price range defines how much of each asset is required. What if someone sets it a way that takes exactly the amount they want to swap as liquidity and exits on another token even for 1% price fluctuation.  
@@ -143,7 +151,7 @@ $ cast --help
 </p>
 </details>
 
-References
+### References
 https://docs.uniswap.org/contracts/v2/overview
 https://app.uniswap.org/whitepaper.pdf
 https://www.paradigm.xyz/2021/07/twamm
